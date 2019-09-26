@@ -1,0 +1,42 @@
+//https://leetcode.com/problems/multiply-strings/
+class Solution {
+public:
+    string multiply(string x, string y) {
+    if (x.empty() or y.empty() or x == "0" or y == "0") 
+        return "0";
+
+    const int max_len = x.size() + y.size();
+    vector<int> buffer(max_len, 0);
+
+    for (int i = x.size() - 1; i > -1; --i) 
+    {
+        for (int j = y.size() - 1; j > -1; --j) 
+        {
+            int local_result = (x[i] - '0') * (y[j] - '0');
+            
+            buffer[i + j + 1] += local_result;
+        }
+    }
+
+    int carry = 0;
+    int digit = 0;
+
+    for (int i = max_len - 1; i > -1; --i) 
+    {
+        digit = (buffer[i] + carry) % 10;
+        carry = (buffer[i] + carry) / 10;
+        buffer[i] = digit;
+    }
+
+
+    string result;
+    for (int i = 0; i < max_len; ++i)
+        result += to_string(buffer[i]);
+
+
+    size_t valid_begin = result.find_first_not_of('0');
+    result = result.substr(valid_begin);
+
+    return result;
+    }
+};
