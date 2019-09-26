@@ -1,0 +1,17 @@
+//https://leetcode.com/problems/sqrtx/
+class Solution {
+public:
+    
+    int newton(double x, double guess){
+        if(abs(guess*guess - x) <= 0.00001){
+            return guess;
+        }
+        
+        double newGuess = guess - (guess*guess - x)/(2*guess);
+        return newton(x,newGuess);
+    }
+    
+    int mySqrt(int x) {
+       return newton(x,1);
+    }
+};
