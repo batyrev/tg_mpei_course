@@ -1,0 +1,13 @@
+//https://leetcode.com/problems/jewels-and-stones/
+class Solution {
+public:
+    int numJewelsInStones(string J, string S) {
+            int num = 0;
+            for (auto j: J){
+                for (auto s: S){
+                if (s == j) num++;
+                }
+            }
+        return num;
+        }
+    };
