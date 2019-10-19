@@ -1,0 +1,42 @@
+//https://leetcode.com/problems/number-of-islands/
+class Solution {
+public:
+    void BFS(vector<vector<char>>& grid, pair<int,int> p1) {
+        grid[p1.first][p1.second] = '0';
+        queue<pair<int,int>> q;
+        q.push(p1);
+        while (!q.empty()) {
+            pair<int,int> p = q.front();
+            q.pop();
+            if (p.first - 1 >= 0 && grid[p.first - 1][p.second] == '1') {
+                q.push(make_pair(p.first - 1, p.second));
+                grid[p.first - 1][p.second] = '0';
+            }
+            if (p.second - 1 >= 0 && grid[p.first][p.second - 1] == '1') {
+                q.push(make_pair(p.first, p.second - 1));
+                grid[p.first][p.second - 1] = '0';
+            }
+            if (p.first + 1 < grid.size() && grid[p.first + 1][p.second] == '1') {
+                q.push(make_pair(p.first + 1, p.second));
+                grid[p.first + 1][p.second] = '0';
+            }
+            if (p.second + 1 < grid[0].size() && grid[p.first][p.second + 1] == '1') {
+                q.push(make_pair(p.first, p.second + 1));
+                grid[p.first][p.second + 1] = '0';
+            }
+        }
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        int res = 0;
+        if (grid.size() == 0 || grid[0].size() == 0) return 0;
+        for (int i = 0; i < grid.size(); i++) {
+            for (int j = 0; j < grid[0].size(); j++) {
+                if (grid[i][j] == '1') {
+                    res++;
+                    BFS(grid, {i,j});
+                }
+            }
+        }
+        return res;
+    }
+};
