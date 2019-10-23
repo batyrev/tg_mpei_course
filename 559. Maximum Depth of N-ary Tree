@@ -1,0 +1,10 @@
+//https://leetcode.com/problems/maximum-depth-of-n-ary-tree/
+class Solution {
+public:
+int maxDepth(Node* root) {
+        if (!root) return 0;
+        int depth = 0;
+        for (auto i: root->children) depth = max(depth, maxDepth(i));
+        return depth + 1;
+    }
+};
