@@ -1,0 +1,17 @@
+//https://leetcode.com/problems/validate-binary-search-tree/
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) { 
+        return helper(root, LONG_MAX, LONG_MIN);
+    }
+    
+    bool helper(TreeNode* root, long mx, long mn) {
+        if (!root) return true;
+        
+        long val = root->val;
+        if (val <= mn || val >= mx) return false;
+        
+        return  helper(root->right, mx, max(val, mn))
+                && helper(root->left, min(mx, val), mn); 
+    }
+};
