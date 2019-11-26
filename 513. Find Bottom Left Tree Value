@@ -1,0 +1,21 @@
+//https://leetcode.com/problems/find-bottom-left-tree-value/
+class Solution {
+public:
+    int findBottomLeftValue(TreeNode* root) {
+        int ret = 0;
+        int maxDeep = 0;
+        traversal(root, 0, maxDeep, ret);
+        return ret;
+    }
+    
+    void traversal(TreeNode *root, int deep, int &maxDeep, int &ret) {
+        if (!root) return;
+        ++deep;
+        if (deep > maxDeep) {
+            ret = root->val;
+            maxDeep = deep;
+        }
+        traversal(root->left, deep, maxDeep, ret);
+        traversal(root->right, deep, maxDeep, ret);
+    }
+};
