@@ -1,0 +1,21 @@
+//https://leetcode.com/problems/employee-importance/
+class Solution {
+public:
+    map<int, Employee*> emap;
+    int getImportance(vector<Employee*> employees, int id) {
+        int i = 0;
+        for (Employee* e: employees) {
+            emap[employees[i]->id] = employees[i];
+            i++;
+        }
+        return dfs(id);
+    }
+    
+    int dfs(int eid) {
+        Employee* employee = emap[eid];
+        int ans = employee->importance;
+        for (int subid: employee->subordinates)
+            ans += dfs(subid);
+        return ans;
+    }
+};
