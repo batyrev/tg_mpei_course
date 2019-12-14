@@ -1,0 +1,18 @@
+//https://leetcode.com/problems/ugly-number-ii/
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        if (n <= 6) return n;
+        int dp[n];
+        dp[0] = 1;
+        int i1 = 0, i2 = 0, i3 = 0;
+        for (int i = 1; i < n; i++) {
+            int min_val = min(dp[i1] * 2, min(dp[i2] * 3, dp[i3] * 5));
+            dp[i] = min_val;
+            if (min_val == dp[i1] * 2) i1++;
+            if (min_val == dp[i2] * 3) i2++;
+            if (min_val == dp[i3] * 5) i3++;
+        }
+        return dp[n - 1];
+    }
+};
