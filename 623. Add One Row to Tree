@@ -1,0 +1,27 @@
+//https://leetcode.com/problems/add-one-row-to-tree/
+class Solution {
+public:
+    TreeNode* addOneRow(TreeNode* root, int v, int d) {
+        if (d == 1) {
+            TreeNode* new_node = new TreeNode(v);
+            new_node->left = root;
+            return new_node;
+        }
+        if (d == 2) {
+            TreeNode* new_node_left = new TreeNode(v);
+            TreeNode* new_node_right = new TreeNode(v);
+            new_node_left->left = root->left;
+            new_node_right->right = root->right;
+            root->left = new_node_left;
+            root->right = new_node_right;
+            return root;
+        }
+        if (root->left) {
+            root->left = addOneRow(root->left, v, d-1);
+        }
+        if (root->right) {
+            root->right = addOneRow(root->right, v, d-1);
+        }
+        return root;
+    }
+};
