@@ -1,0 +1,33 @@
+//https://leetcode.com/problems/cheapest-flights-within-k-stops/
+typedef pair<int,int> pp;
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& v, int src, int dst, int K) {
+        vector<pp> graph[n];
+        
+        for (int i = 0; i < v.size(); i++)
+            graph[v[i][0]].push_back(make_pair(v[i][1],v[i][2]));
+        
+        int ans = INT_MAX, stops = 0;
+        queue<pp> q;
+        q.push(make_pair(src,0));
+        
+        while (!q.empty()){
+            int n = q.size();
+            for (int i = 0; i < n; i++){
+                pp curr = q.front();
+                q.pop();
+                if (curr.first == dst) ans = min(ans,curr.second);
+                for (auto it: graph[curr.first]){
+                    if (curr.second + it.second > ans) continue;
+                    q.push(make_pair(it.first,curr.second + it.second));
+                }
+            }
+            if (stops > K) break;
+            stops++;
+        }
+        
+        if (ans == INT_MAX) return -1;
+        return ans;
+    }
+};
