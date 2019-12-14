@@ -1,0 +1,23 @@
+//https://leetcode.com/problems/top-k-frequent-elements/
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        int n = nums.size();
+        map<int, int> m;
+        vector<vector<int>> bucket(n + 1);
+        for (int n : nums) m[n]++;
+        for (pair<int, int> p : m) {
+            int freq = p.second;
+            bucket[freq].push_back(p.first);
+        }
+        vector<int> res;
+        for (int i = n; i >= 0; --i) {
+            for (int e : bucket[i]) {
+                res.push_back(e);
+				if (res.size() == k)
+					return res;
+			}
+        }
+        return res;
+    }
+};
